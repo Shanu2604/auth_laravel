@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::get('task',[TaskController::class, 'index']);
+
+Route::middleware('apikey')->group(function () {
+    Route::post('todo/add',[TaskController::class, 'store']);
+    Route::put('todo/status/{task}',[TaskController::class, 'update']);
 });
